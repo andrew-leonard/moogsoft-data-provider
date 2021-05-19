@@ -1,22 +1,22 @@
 const axios = require('axios');
 
-exports.sendMetricData = function(apiKey) {
-    
-    const sendFn = async function(params) {
-        const { metric, key, source, tags, value, unit } = params;
+exports.sendCYOIMetrics = function() {
+    const url = '';
+    const apiKey = '';
+
+    if (!url || !apiKey) {
+        console.log('cannot send to CYOI. Need to add in api key and specific endpoint url');
+        return;
+    }
+
+    const sendFn = async function(payload) {
+        // const { metric, key, source, tags, value, unit } = params;
         // console.log(`Value for metric ${metric} is ${value}`);
         try {
             await axios({
                 method: 'post',
-                url: 'https://api.dev.moogsoft.cloud/express/v1/integrations/metrics',
-                data: {
-                    metric,
-                    key,
-                    source,
-                    tags,
-                    data: value,
-                    unit,
-                },
+                url,
+                data: payload,
                 headers: {
                     apiKey,
                     'Content-Type': 'application/json'
@@ -40,14 +40,14 @@ exports.sendMetricData = function(apiKey) {
             env: 'node',
             owner: 'andrew'
         },
-        value: 10,
+        number: 10,
     }, {
         source: 'machine-1',
         metric: 'm1',
         tags: {
             keys: 'none',
         },
-        value: 50,
+        number: 50,
     }, {
         source: 'i-v-12345',
         metric: 'three',
@@ -55,26 +55,21 @@ exports.sendMetricData = function(apiKey) {
     }, {
         source: 'i-v-12345',
         metric: 'three',
-        value: 5
+        number: 5
     }, {
         source: 'macbook',
         metric: 'storage',
         unit: 'gb',
-        value: 50
+        number: 50
     }, {
         source: 'cpu',
         metric: 'percentile',
         unit: '%',
-        value: 20
+        number: 20
     }, {
         source: 'upup',
         metric: 'positive',
-        value: 100,
-        unit: '+'
-    }, {
-        source: 'abc#def',
-        metric: 'badname',
-        value: 5,
+        number: 100,
         unit: '+'
     }];
 

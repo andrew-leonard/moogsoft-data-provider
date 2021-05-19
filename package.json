@@ -1,6 +1,6 @@
 {
   "name": "moogsoft-random-data",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Some scripts for getting data into Moogsoft platform",
   "main": "index.js",
   "scripts": {
