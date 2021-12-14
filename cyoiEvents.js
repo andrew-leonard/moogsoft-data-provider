@@ -1,31 +1,34 @@
 const axios = require('axios');
 const randomWords = require('random-words');
 
-exports.sendEvents = function(apiKey, count = 10) {
+exports.sendCYOIEvents = function(apiKey, batchSize = 60) {
+    const url = 'https://api.dev.moogsoft.cloud/express/v1/integrations/custom/661ef5c042ac/batch';
 
-    const sendFn = async function(event) {
+    if (!url || !apiKey) {
+        console.log('cannot send to CYOI. Need to add in api key and specific endpoint url');
+        return;
+    }
+
+    const sendFn = async function(payload) {
         try {
-            // console.log(`event: ${JSON.stringify(event)}`);
             await axios({
                 method: 'post',
-                url: 'https://api.dev.moogsoft.cloud/v1/integrations/events',
-                data: event,
+                url,
+                data: payload,
                 headers: {
-                    'Accept': 'application/json',
-                    apiKey: apiKey,
+                    apiKey,
                     'Content-Type': 'application/json'
                 }
             });
-        } catch (e) {
+        } catch(e) {
             if (e.response.status === 403) {
                 console.error('API Key invalid. Get new one from your instance');
                 process.exit();
             }
-            console.log('caught an error: ', e);;
+            console.log('caught an error: ', e);
         }
     }
 
-    const numEvents = count;
     const events = [];
     const severities = [
         'clear',
@@ -34,7 +37,7 @@ exports.sendEvents = function(apiKey, count = 10) {
         'warning',
         'critical'
     ];
-    for (let i = 0; i < numEvents; i += 1) {
+    for(let i = 0; i < batchSize; i += 1) {
         const words = Math.floor(Math.random() * 100) + 5;
         const tags = {
             'animal': 'cow',
@@ -62,10 +65,10 @@ exports.sendEvents = function(apiKey, count = 10) {
     }
 
     const send = () => {
-        events.forEach(evt => sendFn(evt));
-        console.log(`Batch of ${count} events sent to MOC`);
+        sendFn(events);
+        console.log(`Sent batch of ${batchSize} events`);
     }
 
     send();
-    setInterval(() => send(), 10000);
+    setInterval(() => send, 60000);
 }

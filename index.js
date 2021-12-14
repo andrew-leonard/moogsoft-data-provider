@@ -1,10 +1,14 @@
 const { sendMetricData } = require('./sendMetrics');
 const { sendEvents } = require('./sendEvents');
 const { sendCYOIMetrics } = require('./cyoiMetrics');
-const API_KEY = 'trevor_!00a7a8eb-ba90-4661-8de8-cca0a59ce3a7';
+const { sendCYOIEvents } = require('./cyoiEvents');
+const { createCredentials } = require('./credentials');
+const API_KEY = '';
 
-sendMetricData(API_KEY);
-sendEvents(API_KEY);
-sendCYOIMetrics();
+// sendMetricData(API_KEY);
+sendEvents(API_KEY, 10);
+// sendCYOIMetrics(API_KEY);
+// sendCYOIEvents(API_KEY);
+// createCredentials(API_KEY, 50);
 
 

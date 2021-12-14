@@ -1,8 +1,7 @@
 const axios = require('axios');
 
-exports.sendCYOIMetrics = function() {
-    const url = '';
-    const apiKey = '';
+exports.sendCYOIMetrics = function(apiKey) {
+    const url = 'https://api.dev.moogsoft.cloud/express/v1/integrations/custom/661ef5c042ac/ts';
 
     if (!url || !apiKey) {
         console.log('cannot send to CYOI. Need to add in api key and specific endpoint url');
@@ -71,6 +70,10 @@ exports.sendCYOIMetrics = function() {
         metric: 'positive',
         number: 100,
         unit: '+'
+    }, {
+        source: 'a',
+        metric: 'dc',
+        number: 5,
     }];
 
     metrics.forEach(m => sendFn(m));
