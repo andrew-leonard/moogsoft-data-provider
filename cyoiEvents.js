@@ -1,8 +1,15 @@
 const axios = require('axios');
 const randomWords = require('random-words');
-const usbankEvents = require('./usbankEvents.json');
+
 
 exports.sendCYOIEvents = function(apiKey, batchSize = 5) {
+    let usbankEvents;
+    try {
+        usbankEvents = require('./usbankEvents.json');
+    } catch (error) {
+        return console.error('usbankEvents not found')
+    }
+
     const url = 'https://api.dev.moogsoft.cloud/express/v1/integrations/custom/661ef5c042ac/netcool';
 
     if (!url || !apiKey) {

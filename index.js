@@ -3,12 +3,16 @@ const { sendEvents } = require('./sendEvents');
 const { sendCYOIMetrics } = require('./cyoiMetrics');
 const { sendCYOIEvents } = require('./cyoiEvents');
 const { createCredentials } = require('./credentials');
-const API_KEY = ''; 
+var argv = require('minimist')(process.argv.slice(2));
 
-// To send data uncomment the method you wish to use
+const API_KEY = '' || argv['apiKey'];
 
-// sendMetricData(API_KEY);
-// sendEvents(API_KEY, 3);
-// sendCYOIMetrics();
-// sendCYOIEvents(API_KEY);
-// createCredentials(API_KEY, 10);
+if (!API_KEY) return console.error('needs api key');
+
+// use arguments
+
+argv['metrics'] && sendMetricData(API_KEY);
+argv['events'] && sendEvents(API_KEY, 3);
+argv['cyoiMetrics'] && sendCYOIMetrics();
+argv['cyoiEvents'] && sendCYOIEvents(API_KEY);
+argv['credentials'] && createCredentials(API_KEY, 10);
