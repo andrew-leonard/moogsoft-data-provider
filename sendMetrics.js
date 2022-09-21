@@ -6,7 +6,7 @@ exports.sendMetricData = function(apiKey) {
         const { metric, key, source, tags, value, unit } = params;
         // console.log(`Value for metric ${metric} is ${value}`);
         try {
-            await axios({
+            const resp = await axios({
                 method: 'post',
                 url: 'https://api.dev.moogsoft.cloud/express/v1/integrations/metrics',
                 data: {
@@ -40,27 +40,27 @@ exports.sendMetricData = function(apiKey) {
             env: 'node',
             owner: 'andrew'
         },
-        value: 10,
+        value: 2.4,
     }, {
         source: 'machine-1',
         metric: 'm1',
         tags: {
             keys: 'none',
         },
-        value: 50,
+        value: 50.000000123,
     }, {
         source: 'i-v-12345',
         metric: 'three',
-        value: 5
+        value: 5.786
     }, {
-        source: 'i-v-12345',
+        source: 'i-v-56789',
         metric: 'three',
-        value: 5
+        value: 50
     }, {
         source: 'macbook',
         metric: 'storage',
         unit: 'gb',
-        value: 50
+        value: 50.000000001
     }, {
         source: 'cpu',
         metric: 'percentile',
@@ -76,18 +76,36 @@ exports.sendMetricData = function(apiKey) {
         metric: 'badname',
         value: 5,
         unit: '+'
+    }, {
+        source: 'local',
+        metric: 'small',
+        value: 0.00023
+    }, {
+        source: 'abc',
+        metric: 'test-counter',
+        value: 1,
+        tags: {
+            counter: true,
+        }
     }];
 
     metrics.forEach(m => sendFn(m));
     setInterval(() => {
         // change the value for each
         metrics.forEach(m => {
-            const clone = Object.assign({}, m);
-            const randomValue = Math.floor(Math.random() * 10 + 1);
-            const shouldChange = randomValue === 3 ? true : false;
-            if(shouldChange) {
-                clone.value = clone.value * 5;
+            const isCounter = m.tags?.counter === true;
+            if (isCounter) {
+                m.value += 1;
             }
+            const clone = Object.assign({}, m);
+            if (!isCounter) {
+                const randomValue = Math.floor(Math.random() * 10 + 1);
+                const shouldChange = randomValue === 3 ? true : false;
+                if(shouldChange) {
+                    clone.value = clone.value * 5;
+                }
+            }
+            
             sendFn(clone)
         });
     }, 10000);

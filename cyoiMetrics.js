@@ -1,9 +1,8 @@
 const axios = require('axios');
 
 exports.sendCYOIMetrics = function() {
-    const url = '';
-    const apiKey = '';
-
+    const url = 'https://api.dev.moogsoft.cloud/express/v1/integrations/custom/661ef5c042ac/m';
+    const apiKey = 'e8317615-26b5-49fc-8c7e-bd3694aa3772';
     if (!url || !apiKey) {
         console.log('cannot send to CYOI. Need to add in api key and specific endpoint url');
         return;
@@ -48,29 +47,6 @@ exports.sendCYOIMetrics = function() {
             keys: 'none',
         },
         number: 50,
-    }, {
-        source: 'i-v-12345',
-        metric: 'three',
-        value: 5
-    }, {
-        source: 'i-v-12345',
-        metric: 'three',
-        number: 5
-    }, {
-        source: 'macbook',
-        metric: 'storage',
-        unit: 'gb',
-        number: 50
-    }, {
-        source: 'cpu',
-        metric: 'percentile',
-        unit: '%',
-        number: 20
-    }, {
-        source: 'upup',
-        metric: 'positive',
-        number: 100,
-        unit: '+'
     }];
 
     metrics.forEach(m => sendFn(m));
@@ -85,5 +61,5 @@ exports.sendCYOIMetrics = function() {
             }
             sendFn(clone)
         });
-    }, 10000);
+    }, 5000);
 }
