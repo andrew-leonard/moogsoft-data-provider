@@ -92,6 +92,11 @@ exports.sendEvents = function(apiKey, count = 10) {
                 // 'amex.spike.broke.es': 'abc'
                 // 'html': '<script>alert("hey")</script>'
             };
+            
+            // In case needing to add lots of tags
+            // const onekTags = randomWords(1000);
+            // onekTags.forEach((t) => tags[t] = t);
+
             const location = {
                 street: 'battery st',
                 city: 'SF',
@@ -103,7 +108,6 @@ exports.sendEvents = function(apiKey, count = 10) {
                 description: randomWords({exactly: 1, wordsPerString: words }).toString(),
                 check: checks[i] || 'test',
                 severity: severities[Math.floor(Math.random() * 4)],
-                // service: services[i],
                 service: [randomWords()],
                 tags,
                 location,
