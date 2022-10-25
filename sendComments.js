@@ -8,28 +8,36 @@ exports.sendCommentsData = function(apiKey) {
                 method: 'POST',
                 url: `https://api.dev.moogsoft.cloud/express/v1/incidents/${incidentId}/comments`,
                 data: {
-                    'comment': randomWords({ exactly: 15, join: ' ' }),
-                    'isResolvingStep': false,
+                    comment: randomWords({
+                        min: 5,
+                        max: 15,
+                        join: ' ',
+                    }),
+                    isResolvingStep: false,
                 },
                 headers: {
-                    apiKey,
-                    'Content-Type': 'application/json'
-                }
+                    accept: 'application/json',
+                    'content-type': 'application/json',
+                    apiKey: apiKey,
+                },
             });
+            console.log(`Added comment to incident #${incidentId}.`)
         } catch(e) {
-            if (e.response.status === 400) {
-                return;
-            }
+            if (e.response.status === 400) return; // no such incidentId
             if (e.response.status === 403) {
                 console.error('API Key invalid. Create a new one in your instance.');
                 process.exit();
             }
-        }
-        
-    }
-    // send comment to incident IDs 1 to 100
-    for (let incidentId = 1; incidentId <= 100; incidentId++) {
+            console.log('An error occurred: ', e.response.statusText);
+        };
+    };
+
+    // change below values if you want a different ID range
+    const minIdVal = 1;
+    const maxIdVal = 15;
+
+    // send a comment to incident IDs between range
+    for (let incidentId = minIdVal; incidentId <= maxIdVal; incidentId++) {
         sendFn(incidentId);
     }
-    process.exit();
 }
