@@ -6,7 +6,7 @@ const { createCredentials } = require('./credentials');
 const { sendCommentsData } = require('./sendComments');
 var argv = require('minimist')(process.argv.slice(2));
 
-const API_KEY = 'b9b44430-89e3-4510-b748-f64529f4ca17' || argv['apiKey'];
+const API_KEY = '' || argv['apiKey'];
 
 if (!API_KEY) {
     console.error('needs api key');

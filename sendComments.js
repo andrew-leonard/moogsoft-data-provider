@@ -28,7 +28,7 @@ exports.sendCommentsData = function(apiKey) {
                 console.error('API Key invalid. Create a new one in your instance.');
                 process.exit();
             }
-            console.log('An error occurred: ', e.response.statusText);
+            console.log('An error occurred: ', e.response.status + e.response.statusText);
         };
     };
 
@@ -36,8 +36,8 @@ exports.sendCommentsData = function(apiKey) {
     const minIdVal = 1;
     const maxIdVal = 15;
 
-    // send a comment to incident IDs between range
+    // send a comment to incident IDs within range
     for (let incidentId = minIdVal; incidentId <= maxIdVal; incidentId++) {
         sendFn(incidentId);
-    }
-}
+    };
+};
