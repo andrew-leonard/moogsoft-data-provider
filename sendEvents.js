@@ -21,7 +21,7 @@ exports.sendEvents = function(apiKey, count = 10) {
                 console.error('API Key invalid. Get new one from your instance');
                 process.exit();
             }
-            console.log('caught an error: ', e);;
+            console.log('caught an error: ', e);
         }
     }
 
