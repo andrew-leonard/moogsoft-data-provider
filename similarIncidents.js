@@ -99,9 +99,7 @@ exports.similarIncidents = function(apiKey) {
             events.push({
                 source: sources[sourceIndex],
                 severity: severities[Math.floor(Math.random() * 4)],
-                service: randomWords(
-                    {exactly: 1, wordsPerString: 1 }
-                ).toString(),
+                service: randomWords({ exactly: 1, wordsPerString: 1 }).toString(),
                 ...eventData,
                 ...comparisonKeyValues[compKeyIndex],
             });
