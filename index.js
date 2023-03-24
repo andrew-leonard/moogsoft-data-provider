@@ -8,7 +8,7 @@ const { createGroups } = require('./groups');
 const { similarIncidents } = require('./similarIncidents');
 var argv = require('minimist')(process.argv.slice(2));
 
-const API_KEY = '974cebd0-6730-4f5c-8c95-660089571416' || argv['apiKey'];
+const API_KEY = '' || argv['apiKey'];
 
 if (!API_KEY) {
     console.error('needs api key');
