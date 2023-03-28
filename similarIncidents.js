@@ -1,6 +1,10 @@
 const axios = require("axios");
 const randomWords = require("random-words");
 
+// This will only generate similar incidents when using the default
+// "similar sources" correlation defintion and only when using the default
+// similarity calculation which uses the comparison key: check, class, manager, type
+
 exports.similarIncidents = function(apiKey) {
 
     const sendFn = async function(event) {
@@ -35,7 +39,9 @@ exports.similarIncidents = function(apiKey) {
         "dilithiumSensor",
         "filterMonitor",
         "shieldAware",
-        "commsCheck"
+        "commsCheck",
+        "hologramStream",
+        "cptJeanLucPicard"
     ];
 
     const comparisonKeyValues = [
@@ -63,18 +69,12 @@ exports.similarIncidents = function(apiKey) {
             "manager": "array",
             "type": "capacity"
         },
-        // {
-        //     "check": "simulation",
-        //     "class": "holodeck",
-        //     "manager": "projector",
-        //     "type": "power"
-        // },
-        // {
-        //     "check": "lifeSupport",
-        //     "class": "replicator",
-        //     "manager": "materializer",
-        //     "type": "overheating"
-        // }
+        {
+            "check": "simulation",
+            "class": "holodeck",
+            "manager": "projector",
+            "type": "power"
+        },
     ];
 
     function generateEvents(eventCount, sourceIndex, compKeyIndex) {
@@ -97,11 +97,13 @@ exports.similarIncidents = function(apiKey) {
     
     const events = [
         ...generateEvents(10, 0, 0),  // incident A
-        ...generateEvents(8, 1, 0),   // incident A
-        ...generateEvents(10, 2, 1),  // incident B
-        ...generateEvents(2, 2, 2),   // incident B
-        ...generateEvents(10, 3, 1),  // incident C
-        ...generateEvents(2, 3, 3)    // incident C
+        ...generateEvents(8, 1, 0),   // incident B
+        ...generateEvents(10, 2, 1),  // incident C
+        ...generateEvents(2, 2, 2),   // incident C
+        ...generateEvents(10, 3, 1),  // incident D
+        ...generateEvents(2, 3, 3),   // incident D
+        ...generateEvents(10, 4, 4),  // incident E
+        ...generateEvents(10, 5, 4)   // incident F
     ]
 
     console.log("Creating similar incidents...")
