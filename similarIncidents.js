@@ -2,7 +2,7 @@ const axios = require("axios");
 const randomWords = require("random-words");
 
 // This will only generate similar incidents when using the default
-// "similar sources" correlation defintion and only when using the default
+// "similar sources" correlation definition and only when using the default
 // similarity calculation which uses the comparison key: check, class, manager, type
 
 exports.similarIncidents = function(apiKey) {
@@ -94,6 +94,10 @@ exports.similarIncidents = function(apiKey) {
         };
         return events;
     };
+
+    // All of Incident B's alerts are similar to the alerts in Incident A
+    // Incidents C and D will have similar alerts in common, and some unique alerts
+    // Incidents E and F will be 100% similar
     
     const events = [
         ...generateEvents(10, 0, 0),  // incident A
