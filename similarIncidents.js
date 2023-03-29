@@ -102,10 +102,10 @@ exports.similarIncidents = function(apiKey) {
     const events = [
         ...generateEvents(10, 0, 0),  // incident A
         ...generateEvents(8, 1, 0),   // incident B
-        ...generateEvents(10, 2, 1),  // incident C
-        ...generateEvents(2, 2, 2),   // incident C
-        ...generateEvents(10, 3, 1),  // incident D
-        ...generateEvents(2, 3, 3),   // incident D
+        ...generateEvents(15, 2, 1),  // incident C
+        ...generateEvents(1, 2, 2),   // incident C
+        ...generateEvents(15, 3, 1),  // incident D
+        ...generateEvents(1, 3, 3),   // incident D
         ...generateEvents(10, 4, 4),  // incident E
         ...generateEvents(10, 5, 4)   // incident F
     ]
