@@ -33,7 +33,7 @@ exports.similarIncidents = function(apiKey) {
     const disableExistingDefs = (groups) => {
         groups.forEach(group => {
             group.definitions = group.definitions.map(
-                def => ({uuid: def.uuid, disabled: true})
+                def => ({ uuid: def.uuid, disabled: true })
             );
         });
         groups.forEach(group => {
