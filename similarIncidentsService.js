@@ -4,7 +4,7 @@ const getCEGroups = async (apiKey) => {
     try {
         const res = await axios({
             method: "get",
-            url: "https://api.dev.moogsoft.cloud/v1/correlation-groups",
+            url: "https://api.dev.moogsoft.cloud/v2/correlation/groups?inline-definitions=true",
             headers: {
                 Accept: "application/json",
                 apiKey: apiKey
@@ -24,7 +24,7 @@ const editCEGroup = async (apiKey, id, params) => {
     try {
         const res = await axios({
             method: "patch",
-            url: `https://api.dev.moogsoft.cloud/v1/correlation-groups/id/${id}`,
+            url: `https://api.dev.moogsoft.cloud/v2/correlation/groups/${id}`,
             data: params,
             headers: {
                 Accept: "application/json",
@@ -46,7 +46,7 @@ const createNewDef = async (apiKey, params) => {
     try {
         const res = await axios({
             method: "post",
-            url: `https://api.dev.moogsoft.cloud/v1/correlation-definitions`,
+            url: `https://api.dev.moogsoft.cloud/v2/correlation/definitions`,
             data: params,
             headers: {
                 Accept: "application/json",
